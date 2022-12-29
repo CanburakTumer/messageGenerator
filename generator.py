@@ -11,7 +11,7 @@ def read_conditions():
 
 def generate_conditions():
     condition_list = read_conditions()
-    return condition_list[random.randint(0, len(condition_list))]
+    return condition_list[random.randint(0, len(condition_list)-1)]
 
 
 def generate_heat():
@@ -37,5 +37,5 @@ def generate_a_message():
          "humidity": humidity
          }
 
-    return json.dumps(message)
+    return json.dumps(message).encode('utf-8')
 
