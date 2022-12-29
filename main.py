@@ -1,16 +1,16 @@
-# This is a sample Python script.
+import generator
+import os
+from concurrent import futures
+from google.cloud import pubsub_v1
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+project_id = os.environ.get("PROJECT_ID")
+topic_id = os.getenv("TOPIC_ID")
 
+topic_path = f"projects/{project_id}/topics/{topic_id}"
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+publisher = pubsub_v1.PublisherClient()
+future = publisher.publish(topic_path, b'Test', timeout=15)
+future.result()
 
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    data = (generator.generate_a_message())
